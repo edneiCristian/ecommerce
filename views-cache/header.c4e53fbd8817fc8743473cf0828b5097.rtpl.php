@@ -294,9 +294,9 @@ desired effect
 					<li class="header">HEADER</li>
 					<!-- Optionally, you can add icons to the links -->
 					<li class="active">
-						<a href="#">
-							<i class="fa fa-link"></i>
-							<span>Link</span>
+						<a href="/admin/users">
+							<i class="fa fa-users"></i>
+							<span>Usúarios</span>
 						</a>
 					</li>
 					<li>

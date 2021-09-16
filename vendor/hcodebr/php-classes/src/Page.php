@@ -43,7 +43,7 @@ class Page {
 	private function setData($data = array()) {
 		foreach ( $data as $key => $value ) {
 			
-			$this->tpl->assign ( $key, $val );
+			$this->tpl->assign ( $key, $value );
 		}
 	}
 	public function setTpl($tplname, $data = array(), $returnHTML = false) {
