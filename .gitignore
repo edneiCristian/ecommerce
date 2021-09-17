@@ -1,2 +1,3 @@
 .gitignore
 /vendor/hcodebr/php-classes/src/Mailer.php
+/vendor/hcodebr/php-classes/src/MailVariaveis.php

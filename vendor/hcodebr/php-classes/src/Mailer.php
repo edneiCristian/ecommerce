@@ -36,9 +36,9 @@ class Mailer {
 			
 		}
 		
-		$htmp= $tpl->draw($tplName,true);
+		$html= $tpl->draw($tplName,true);
 		
-		$this->$mail = new \PHPMailer();
+		$this->mail = new \PHPMailer;
 		
 		//Tell PHPMailer to use SMTP
 		$this->mail->isSMTP();
@@ -49,21 +49,23 @@ class Mailer {
 		//SMTP::DEBUG_SERVER = client and server messages
 		$this->mail->SMTPDebug = 0;
 		
+		$this->mail->Debugoutput = 'html';
+		
 		//Set the hostname of the mail server
 		$this->mail->Host = 'smtp.gmail.com';
 		//Use `$this->mail->Host = gethostbyname('smtp.gmail.com');`
 		//if your network does not support SMTP over IPv6,
 		//though this may cause issues with TLS
-		
+		$this->mail->SMTPSecure = 'tls';
 		//Set the SMTP port number:
 		// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
 		// - 587 for SMTP+STARTTLS
-		$this->mail->Port = 465;
+		$this->mail->Port = 587;
 		
 		//Set the encryption mechanism to use:
 		// - SMTPS (implicit TLS on port 465) or
 		// - STARTTLS (explicit TLS on port 587)
-		$this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+		//$this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 		
 		//Whether to use SMTP authentication
 		$this->mail->SMTPAuth = true;
