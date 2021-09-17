@@ -1,1 +1,2 @@
+.gitignore
 /vendor/hcodebr/php-classes/src/Mailer.php
