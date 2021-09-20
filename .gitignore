@@ -3,4 +3,4 @@
 .buildpath
 .project
 /vendor/hcodebr/php-classes/src/parametros.php
-/views-cache/*
+/views-cache/*.*
