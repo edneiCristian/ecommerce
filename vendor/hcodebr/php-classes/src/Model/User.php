@@ -61,7 +61,7 @@ class User extends Model {
 				
 				":desperson" => $this->getdesperson (),
 				":deslogin" => $this->getdeslogin (),
-				":despassword" => $this->getdespassword (),
+		        ":despassword"=>User::getPasswordHash($this->getdespassword()),
 				":desemail" => $this->getdesemail (),
 				":nrphone" => $this->getnrphone (),
 				":inadmin" => $this->getinadmin () 
@@ -116,7 +116,7 @@ class User extends Model {
 		
 		if (count ( $results ) === 0) {
 			
-			throw new \Exception ( "NÃ£o foi possivel recuperar a senha." );
+			throw new \Exception ( "Não foi possivel recuperar a senha." );
 		} else {
 			
 			$data = $results [0];
@@ -128,7 +128,7 @@ class User extends Model {
 			
 			if (count ( $results2 ) === 0) {
 				
-				throw new \Exception ( "NÃ£o foi possivel recuperar a senha" );
+				throw new \Exception ( "Não foi possivel recuperar a senha" );
 			} else {
 				
 				$dataRecovery = $results2 [0];
@@ -198,6 +198,15 @@ class User extends Model {
 				":password" => $password,
 				":iduser" => $this->getiduser () 
 		));
+	}
+	
+	public static function getPasswordHash($password)
+	{
+	    
+	    return password_hash($password, PASSWORD_DEFAULT, [
+	        'cost'=>12
+	    ]);
+	    
 	}
 }
 
