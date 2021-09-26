@@ -1,37 +1,48 @@
 <?php
-
 use \Hcode\Page;
-use Hcode\Model\Product;
-use Hcode\Model\Category;
+use \Hcode\Model\Product;
+use \Hcode\Model\Category;
 
-$app->get ( '/', function () {
-	
-	$products=Product::listAll();
+$app->get('/', function () {
 
-	$page = new Page ();
+    $products = Product::listAll();
 
-	$page->setTpl ( "index", [
-			
-			'products'=> Product::checklist($products)
-			
-	] );
-} );
+    $page = new Page();
 
-	$app->get ( "/categories/:idcategory", function ($idcategory) {
-	
-		$category = new Category ();
-	
-		$category->get ( ( int ) $idcategory );
-	
-		$page = new Page ();
-	
-		$page->setTpl ( "category", [
-				'category' => $category->getValues (),
-				'products' =>Product::checklist($category->getProducts())
-		] );
-	} );
+    $page->setTpl("index", [
 
+        'products' => Product::checklist($products)
+    ]);
+});
 
+$app->get("/categories/:idcategory", function ($idcategory) {
 
+    $page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
+
+    $category = new Category();
+
+    $category->get((int) $idcategory);
+
+    $pagination = $category->getProductsPage($page);
+
+    $pages = [];
+
+    for ($i = 1; $i <= $pagination['pages']; $i++) {
+
+        array_push($pages, [
+            'link' => '/categories/' . $category->getidcategory() . '?page=' . $i,
+            'page' => $i
+        ]);
+    }
+    
+    
+    $page = new Page();
+
+    $page->setTpl("category", [
+        'category' => $category->getValues(),
+        'products' => $pagination["data"],
+        'pages' => $pages
+    ]);
+});
 
 ?>
