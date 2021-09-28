@@ -95,7 +95,12 @@ class Product extends Model {
 				break;
 		}
 		
-		$dist = $_SERVER ['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "res" . DIRECTORY_SEPARATOR . "site" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . $this->getidproduct () . ".jpg";
+		$dist = $_SERVER ['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
+		"res" . DIRECTORY_SEPARATOR .
+		"site" . DIRECTORY_SEPARATOR . 
+		"img" . DIRECTORY_SEPARATOR . 
+		"products" . DIRECTORY_SEPARATOR . 
+		$this->getidproduct () . ".jpg";
 		
 		imagejpeg ( $image, $dist );
 		
@@ -103,27 +108,29 @@ class Product extends Model {
 		
 		$this->checkPhoto ();
 	}
+	
 	public function getFromURL($desurl) {
-		$sql = new Sql ();
+		
+	    $sql = new Sql ();
 		
 		$rows = $sql->select ( "SELECT * FROM tb_products WHERE desurl = :desurl LIMIT 1", [ 
 				':desurl' => $desurl 
-		]
-		 );
+		]);
 		
 		$this->setData ( $rows [0] );
 	}
 	
-	public function getGategories(){
+	public function getCategories(){
 		
 	$sql=new Sql();
 	
-	return $sql->select("SELECT * FROM tb_categories a 
-						INNER JOIN tb_productscategories b 
-						ON a.idcategory = b.idcategoty
-						WHERE b.idproduct = :idproduct",[
-							':idproduct'=>$this->getidproduct()
-						]);
+	return $sql->select("
+        SELECT * FROM tb_categories a 
+		INNER JOIN tb_productscategories b 
+		ON a.idcategory = b.idcategory
+		WHERE b.idproduct = :idproduct",[
+			':idproduct'=>$this->getidproduct()
+		]);
 		
 	}
 }

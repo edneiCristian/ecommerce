@@ -56,8 +56,7 @@ $app->get ( "/products/:desurl", function ($desurl) {
 			
 			'product' => $product->getValues (),
 			'categories' => $product->getCategories () 
-	]
-	 );
+	]);
 } );
 
 ?>
