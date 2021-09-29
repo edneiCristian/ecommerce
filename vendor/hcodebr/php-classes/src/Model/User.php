@@ -1,9 +1,9 @@
 <?php
 namespace Hcode\Model;
 
-use Hcode\DB\Sql;
-use Hcode\Model;
-use Hcode\Mailer;
+use \Hcode\DB\Sql;
+use \Hcode\Model;
+use \Hcode\Mailer;
 
 class User extends Model
 {
@@ -18,7 +18,7 @@ class User extends Model
     {
         $user = new User();
 
-        if (isset($_SESSION[User::SESSION]) && (int) $_SESSION[User::SESSION]['iduser'] > 0) {
+        if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]['iduser'] > 0) {
 
             $user->setData($_SESSION[User::SESSION]);
         }
@@ -29,16 +29,18 @@ class User extends Model
     public static function checkLogin($inadmin=true)
     {
         if (! isset($_SESSION[User::SESSION]) || ! $_SESSION[User::SESSION] || ! (int) $_SESSION[User::SESSION]["iduser"] > 0) {
-            // Não está logado
+            // Nï¿½o estÃ¡ logado
             return false;
         } else {
 
-            if ($inadmin === true && (bool) $_SESSION[User::SESSION]['inadmin'] === true) {
+            if ($inadmin === true && (bool)$_SESSION[User::SESSION]['inadmin'] === true) {
 
                 return true;
+                
             } else if ($inadmin === false) {
 
                 return true;
+                
             } else {
 
                 return false;
@@ -80,7 +82,7 @@ class User extends Model
         if (User::checkLogin($inadmin)) {
 
             header("Location: /admin/login");
-            exit();
+            exit;
         }
     }
 
@@ -167,7 +169,7 @@ class User extends Model
 
         if (count($results) === 0) {
 
-            throw new \Exception("Não foi possivel recuperar a senha.");
+            throw new \Exception("Nï¿½o foi possivel recuperar a senha.");
         } else {
 
             $data = $results[0];
@@ -179,7 +181,7 @@ class User extends Model
 
             if (count($results2) === 0) {
 
-                throw new \Exception("Não foi possivel recuperar a senha");
+                throw new \Exception("Nï¿½o foi possivel recuperar a senha");
             } else {
 
                 $dataRecovery = $results2[0];

@@ -13,7 +13,7 @@ $app->get ( '/', function () {
 	
 	$page->setTpl ( "index", [ 
 			
-			'products' => Product::checklist ( $products ) 
+			'products' => Product::checkList ( $products ) 
 	] );
 } );
 
@@ -27,7 +27,7 @@ $app->get ( "/categories/:idcategory", function ($idcategory) {
 	
 	$pagination = $category->getProductsPage ( $page );
 	
-	$pages = [ ];
+	$pages = [];
 	
 	for($i = 1; $i <= $pagination ['pages']; $i ++) {
 		
@@ -70,7 +70,7 @@ $app->get("/cart", function(){
     
     $page->setTpl("cart",[
         'cart'=>$cart->getValues(),
-        'products'=>$cart->getProduct()
+        'products'=>$cart->getProducts()
     ]);
 });
 
@@ -82,8 +82,14 @@ $app->get("/cart/:idproduct/add", function ($idproduct) {
     $product->get((int)$idproduct);
     
     $cart= Cart::getFromSession();
-    
-    $cart->addProduct($product);
+            
+    $qtd = (isset($_GET['qtd'])) ? (int)$_GET['qtd'] : 1;
+
+	for ($i = 0; $i < $qtd; $i++) {
+		
+		$cart->addProduct($product);
+		
+	}
     
     header("Location: /cart");
     

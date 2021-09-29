@@ -12,7 +12,7 @@ class Product extends Model {
 		
 		return $sql->select ( "SELECT * FROM tb_products ORDER BY desproduct" );
 	}
-	public static function checklist($list) {
+	public static function checkList($list) {
 		foreach ( $list as &$row ) {
 			
 			$p = new Product ();
@@ -25,18 +25,20 @@ class Product extends Model {
 	public function save() {
 		$sql = new Sql ();
 		
-		$results = $sql->select ( "CALL sp_products_save(:idproduct, :desproduct, :vlprice, :vlwidth, :vlheight, :vllength,
-				:vlweight, :desurl)", array (
+		$results = $sql->select("CALL sp_products_save(:idproduct, :desproduct, :vlprice, :vlwidth, :vlheight, :vllength,
+				:vlweight, :desurl)", array(
 				
-				":idproduct" => $this->getidproduct (),
-				":desproduct" => $this->getdesproduct (),
-				":vlprice" => $this->getvlprice (),
-				":vlwidth" => $this->getvlwidth (),
-				":vlheight" => $this->getvlheight (),
-				":vllength" => $this->getvllength (),
-				":vlweight" => $this->getvlweight (),
-				":desurl" => $this->getdesurl () 
-		) );
+			":idproduct"=>$this->getidproduct(),
+			":desproduct"=>$this->getdesproduct(),
+			":vlprice"=>$this->getvlprice(),
+			":vlwidth"=>$this->getvlwidth(),
+			":vlheight"=>$this->getvlheight(),
+			":vllength"=>$this->getvllength(),
+			":vlweight"=>$this->getvlweight(),
+			":desurl"=>$this->getdesurl()
+		));
+		
+		
 		
 		$this->setData ( $results [0] );
 	}
@@ -66,7 +68,7 @@ class Product extends Model {
 		return $this->setdesphoto ( $url );
 	}
 	public function getValues() {
-		$this->checkphoto ();
+		$this->checkPhoto ();
 		
 		$values = parent::getValues ();
 		
