@@ -66,6 +66,8 @@ $app->get("/cart", function(){
     
     $cart =Cart::getFromSession();
     
+    
+    
     $page=new Page();
     
     $page->setTpl("cart",[
@@ -94,6 +96,8 @@ $app->get("/cart/:idproduct/add", function ($idproduct) {
     header("Location: /cart");
     
     exit;
+    
+    
     
 });
 

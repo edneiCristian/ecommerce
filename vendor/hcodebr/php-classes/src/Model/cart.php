@@ -55,7 +55,7 @@ class Cart extends Model
     {
         $sql = new Sql();
 
-        $results = $sql->select("SELECT * FROM tb_carts WHERE dessessionid= :dessessionid", [
+        $results = $sql->select("SELECT * FROM tb_carts WHERE dessessionid = :dessessionid", [
             ':dessessionid' => session_id()
         ]);
 
@@ -68,7 +68,7 @@ class Cart extends Model
     {
         $sql = new Sql();
 
-        $results = $sql->select("SELECT * FROM tb_carts WHERE idcart= :idcart", [
+        $results = $sql->select("SELECT * FROM tb_carts WHERE idcart = :idcart", [
             ':idcart' => $idcart
         ]);
 
@@ -98,10 +98,10 @@ class Cart extends Model
     {
         $sql = new Sql();
 
-        $sql->execquery("INSERT INTO tb_cartsproducts (idcart, idproduct) VALUES(:idcard, :idproduct)", [
+        $sql->execquery("INSERT INTO tb_cartsproducts(idcart, idproduct) VALUES(:idcart, :idproduct)", [
 
             ':idcart'=> $this->getidcart(),
-            ':idproduct'=>$product->getidproduct()
+            ':idproduct'=> $product->getidproduct()
         ]);
         
       //  $this->getCalculateTotal();
@@ -131,12 +131,14 @@ class Cart extends Model
         
         $sql=new Sql();
                																		
-        $rows = $sql->select("SELECT b.idproduct,b.desproduct,b.vlprice,b.vlwidth,b.vlheight,b.vllength,b.vlweight,b.desurl,COUNT(*) AS nrqrd,SUM(b.vlprice) as vltotal
-    FROM tb_cartsproducts a 
-    INNER JOIN tb_products b USING (idproduct) 
-    WHERE idcart = :idcart AND dtremoved IS NULL
-    GROUP BY b.idproduct,b.desproduct,b.vlprice,b.vlwidth,b.vlheight,b.vllength,b.vlweight,b.desurl
-    ORDER BY b.desproduct
+        $rows = $sql->select("
+			SELECT b.idproduct, b.desproduct , b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl, 
+        	COUNT(*) AS nrqtd, SUM(b.vlprice) AS vltotal 
+			FROM tb_cartsproducts a 
+			INNER JOIN tb_products b ON a.idproduct = b.idproduct 
+			WHERE a.idcart = :idcart AND a.dtremoved IS NULL 
+			GROUP BY b.idproduct, b.desproduct , b.vlprice, b.vlwidth, b.vlheight, b.vllength, b.vlweight, b.desurl 
+			ORDER BY b.desproduct   
         ", [
             ':idcart'=>$this->getidcart()
         ]);
