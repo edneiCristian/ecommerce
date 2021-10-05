@@ -166,7 +166,7 @@ class Cart extends Model {
 			$qs = http_build_query ( [ 
 					'nCdEmpresa' => '',
 					'sDsSenha' => '',
-					'nCdServico' => '04014',
+					'nCdServico' => '04014', 
 					'sCepOrigem' => '09853120',
 					'sCepDestino' => $nrzipcode,
 					'nVlPeso' => $totals ['vlweight'],
@@ -180,8 +180,8 @@ class Cart extends Model {
 					'sCdAvisoRecebimento' => 'S' 
 			] );
 			
-			$xml = simplexml_load_file ( "http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?" . $qs );
-			
+			$xml = simplexml_load_file ("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?".$qs);
+			                            
 			$result = $xml->Servicos->cServico;
 			
 			if ($result->MsgErro != '') {
