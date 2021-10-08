@@ -177,7 +177,7 @@ class Cart extends Model {
 			$qs = http_build_query ( [ 
 					'nCdEmpresa' => '',
 					'sDsSenha' => '',
-					'nCdServico' => '04014', 
+					'nCdServico' => '40010', 
 					'sCepOrigem' => '07791120',
 					'sCepDestino' => $nrzipcode,
 					'nVlPeso' => $totals ['vlweight'],
@@ -210,10 +210,7 @@ class Cart extends Model {
 			$this->save ();
 			
 			return $result;
-			
-			// var_dump($xml);
-			// echo json_encode($xml);
-			// exit;
+						
 		} else {
 		}
 	}
