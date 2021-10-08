@@ -158,16 +158,27 @@ class Cart extends Model {
 		
 		if ($totals ['nrqtd'] > 0) {
 			
+			/*
+			MIN - MAX
+			Comprimento (C): 15 cm – 100 cm
+			Largura (L): 10 cm – 100 cm
+			Altura (A): 1 cm – 100 cm
+			Soma das dimensões (C+L+A): 25 cm – 200 cm
+			*/
+			
+			
 			if ($totals ['vlheight'] < 2)
 				$totals ['vlheight'] = 2;
 			if ($totals ['vllength'] < 16)
 				$totals ['vllength'] = 16;
+			if ($totals ['vlwidth'] < 10)
+				$totals ['vlwidth'] = 10;
 			
 			$qs = http_build_query ( [ 
 					'nCdEmpresa' => '',
 					'sDsSenha' => '',
 					'nCdServico' => '04014', 
-					'sCepOrigem' => '09853120',
+					'sCepOrigem' => '07791120',
 					'sCepDestino' => $nrzipcode,
 					'nVlPeso' => $totals ['vlweight'],
 					'nCdFormato' => '1',
